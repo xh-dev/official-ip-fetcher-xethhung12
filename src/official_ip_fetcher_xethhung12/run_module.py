@@ -1,15 +1,22 @@
 from dataclasses import asdict
+import os
 
 def main():
     from official_ip_fetcher_xethhung12 import cf_local_module, google_local_module,repo_module
     # repo = repo_module.FileRepo()
+    bucket = os.getenv("S3_BUCKET")
+    prefix = os.getenv("S3_PREFIX")
+    endpoint_url = os.getenv("S3_ENDPOINT_URL")
+    aws_access_key_id = os.getenv("S3_AWS_ACCESS_KEY_ID")
+    aws_secret_access_key = os.getenv("S3_AWS_SECRET_ACCESS_KEY")
+    region_name = os.getenv("S3_REGION_NAME")
     repo = repo_module.S3Repo(
-        bucket="hkplive-ot7-jzcwiezlupaxk",
-        prefix = "/official-ip-fetcher/", 
-        endpoint_url = "https://t3.storageapi.dev",
-        aws_access_key_id = "tid_momEWsKMbmxjIhBiETGuFEOTPiPhOclTlxgCrlESpnwuAHbcbl", 
-        aws_secret_access_key = "tsec_o8Ug6uXH3PFmFW_c9fjGmIcRYe72tf2LuGw5IvcnXGpiO449OgCzNfEJzEcLvv-1zW4gsG",
-        region_name = "auto"
+        bucket = bucket,
+        prefix = prefix, 
+        endpoint_url = endpoint_url,
+        aws_access_key_id = aws_access_key_id, 
+        aws_secret_access_key = aws_secret_access_key,
+        region_name = region_name
     )
     print(cf_local_module.get_cf_ipv4_no_cache(repo))
     print(cf_local_module.get_cf_ipv6_no_cache(repo))
