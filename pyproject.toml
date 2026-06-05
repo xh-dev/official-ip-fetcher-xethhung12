@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "official-ip-fetcher-xethhung12"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
   { name="Xeth Hung", email="admin@xethh.me" },
 ]

@@ -10,19 +10,19 @@ class Repo:
     def check_if_cf_ipv4_expired(self, signature: str)-> bool:
         pass
     
-    def get_cf_ipv4(self)-> list[model_module.OfficialIPModel]:
+    def get_cf_ipv4(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def save_cf_ipv4(self, ips: list[model_module.OfficialIPModel]):
+    def save_cf_ipv4(self, ips: list[model_module.OfficialIpModel]):
         pass
 
     def check_if_cf_ipv6_expired(self, signature: str)-> bool:
         pass
 
-    def get_cf_ipv6()-> list[model_module.OfficialIPModel]:
+    def get_cf_ipv6()-> list[model_module.OfficialIpModel]:
         pass
 
-    def save_cf_ipv6(self, ips: list[model_module.OfficialIPModel]):
+    def save_cf_ipv6(self, ips: list[model_module.OfficialIpModel]):
         pass
 
     def _check_if_expired(self, file_name, signature: str)-> bool:
@@ -46,34 +46,34 @@ class Repo:
     def check_if_google_user_trigger_agent_expired(self, signature: str)-> bool:
         pass
 
-    def get_google_common_bot(self)-> list[model_module.OfficialIPModel]:
+    def get_google_common_bot(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def get_google_special_bot(self)-> list[model_module.OfficialIPModel]:
+    def get_google_special_bot(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def get_google_user_trigger_fetcher(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_fetcher(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def get_google_user_trigger_google_fetcher(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_google_fetcher(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def get_google_user_trigger_agent(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_agent(self)-> list[model_module.OfficialIpModel]:
         pass
 
-    def save_google_common_bot(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_common_bot(self, ips: list[model_module.OfficialIpModel]):
         pass
 
-    def save_google_special_bot(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_special_bot(self, ips: list[model_module.OfficialIpModel]):
         pass
 
-    def save_google_user_trigger_fetcher(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_fetcher(self, ips: list[model_module.OfficialIpModel]):
         pass
 
-    def save_google_user_trigger_google_fetcher(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_google_fetcher(self, ips: list[model_module.OfficialIpModel]):
         pass
 
-    def save_google_user_trigger_agent(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_agent(self, ips: list[model_module.OfficialIpModel]):
         pass
 
 class FileRepo(Repo):
@@ -86,26 +86,26 @@ class FileRepo(Repo):
         return self._check_if_expired(file__name, signature)
 
     
-    def _get_ip(self, file_name)-> list[model_module.OfficialIPModel]:
+    def _get_ip(self, file_name)-> list[model_module.OfficialIpModel]:
         if not os.path.exists(file_name):
             return []
         with open(file_name, "r") as f:
             data = json.load(f)
             return [model_module.OfficialIpModel(i['ip'], i['mask'], model_module.IpVersion(i['version'])) for i in data]
 
-    def get_cf_ipv4(self)-> list[model_module.OfficialIPModel]:
+    def get_cf_ipv4(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("cf_ipv4.json")
 
-    def save_cf_ipv4(self, ips: list[model_module.OfficialIPModel]):
+    def save_cf_ipv4(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("cf_ipv4.json", "cf_ipv4.sig", ips)
 
-    def get_cf_ipv6(self)-> list[model_module.OfficialIPModel]:
+    def get_cf_ipv6(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("cf_ipv6.json")
 
-    def save_cf_ipv6(self, ips: list[model_module.OfficialIPModel]):
+    def save_cf_ipv6(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("cf_ipv6.json", "cf_ipv6.sig", ips)
     
-    def _save_content(self, file_name, sign_name, ips: list[model_module.OfficialIPModel]):
+    def _save_content(self, file_name, sign_name, ips: list[model_module.OfficialIpModel]):
         data = json.dumps([ asdict(i) for i in ips ], indent=2, ensure_ascii=False)
         hash_str = hashlib.sha256(data.encode()).hexdigest()
         self._save_signature(sign_name, hash_str)
@@ -126,46 +126,46 @@ class FileRepo(Repo):
     def check_if_google_common_bot_expired(self, signature: str)-> bool:
         return self._check_if_expired("google_common_bot.sig", signature)
     
-    def get_google_common_bot(self)-> list[model_module.OfficialIPModel]:
+    def get_google_common_bot(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("google_common_bot.json")
 
     def check_if_google_special_bot_expired(self, signature: str)-> bool:
         return self._check_if_expired("google_special_bot.sig", signature)
     
-    def get_google_special_bot(self)-> list[model_module.OfficialIPModel]:
+    def get_google_special_bot(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("google_special_bot.json")
     
     def check_if_google_user_trigger_fetcher_expired(self, signature: str)-> bool:
         return self._check_if_expired("google_user_trigger_fetcher.sig", signature)
     
-    def get_google_user_trigger_fetcher(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_fetcher(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("google_user_trigger_fetcher.json")
     
     def check_if_google_user_trigger_google_fetcher_expired(self, signature: str)-> bool:
         return self._check_if_expired("google_user_trigger_google_fetcher.sig", signature)
     
-    def get_google_user_trigger_google_fetcher(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_google_fetcher(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("google_user_trigger_google_fetcher.json")
     
     def check_if_google_user_trigger_agent_expired(self, signature: str)-> bool:
         return self._check_if_expired("google_user_trigger_agent.sig", signature)
     
-    def get_google_user_trigger_agent(self)-> list[model_module.OfficialIPModel]:
+    def get_google_user_trigger_agent(self)-> list[model_module.OfficialIpModel]:
         return self._get_ip("google_user_trigger_agent.json")
 
-    def save_google_common_bot(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_common_bot(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("google_common_bot.json", "google_common_bot.sig", ips)
 
-    def save_google_special_bot(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_special_bot(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("google_special_bot.json", "google_special_bot.sig", ips)
 
-    def save_google_user_trigger_fetcher(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_fetcher(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("google_user_trigger_fetcher.json", "google_user_trigger_fetcher.sig", ips)
 
-    def save_google_user_trigger_google_fetcher(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_google_fetcher(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("google_user_trigger_google_fetcher.json", "google_user_trigger_google_fetcher.sig", ips)
 
-    def save_google_user_trigger_agent(self, ips: list[model_module.OfficialIPModel]):
+    def save_google_user_trigger_agent(self, ips: list[model_module.OfficialIpModel]):
         self._save_content("google_user_trigger_agent.json", "google_user_trigger_agent.sig", ips)
 
 
@@ -202,14 +202,14 @@ class S3Repo(FileRepo):
             Body=content.encode("utf-8"),
         )
 
-    def _get_ip(self, file_name: str) -> list[model_module.OfficialIPModel]:
+    def _get_ip(self, file_name: str) -> list[model_module.OfficialIpModel]:
         content = self._read_object(file_name)
         if content is None:
             return []
         data = json.loads(content)
         return [model_module.OfficialIpModel(i["ip"], i["mask"], model_module.IpVersion(i["version"])) for i in data]
 
-    def _save_content(self, file_name: str, sign_name: str, ips: list[model_module.OfficialIPModel]):
+    def _save_content(self, file_name: str, sign_name: str, ips: list[model_module.OfficialIpModel]):
         data = json.dumps([asdict(i) for i in ips], indent=2, ensure_ascii=False)
         hash_str = hashlib.sha256(data.encode()).hexdigest()
         self._save_signature(sign_name, hash_str)
