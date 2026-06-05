@@ -1,6 +1,6 @@
 from dataclasses import asdict
 from official_ip_fetcher_xethhung12 import model_module
-def get_cf_ipv4()-> list[model_module.OfficialIPModel]:
+def get_cf_ipv4()-> list[model_module.OfficialIpModel]:
     import requests
 
     url = "https://www.cloudflare.com/ips-v4"
@@ -14,7 +14,7 @@ def get_cf_ipv4()-> list[model_module.OfficialIPModel]:
     else:
         raise Exception(f"Failed to fetch Cloudflare IPv4 addresses: {response.status_code}")
     
-def get_cf_ipv6()-> list[model_module.OfficialIPModel]:
+def get_cf_ipv6()-> list[model_module.OfficialIpModel]:
     import requests
 
     url = "https://www.cloudflare.com/ips-v6"
