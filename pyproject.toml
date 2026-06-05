@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 
 [project]
-name = "official_ip_fetcher"
-version = "0.0.1"
+name = "official-ip-fetcher-xethhung12"
+version = "0.0.3"
 authors = [
   { name="Xeth Hung", email="admin@xethh.me" },
 ]
@@ -27,7 +27,7 @@ Homepage = "https://github.com/pypa/sampleproject"
 Issues = "https://github.com/pypa/sampleproject/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/official_ip_fetcher_xethhugn12"]
+packages = ["src/official_ip_fetcher_xethhung12"]
 
 [project.scripts]
 official-ip-fetcher="official_ip_fetcher._cmd.run:main"
